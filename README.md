@@ -1,10 +1,10 @@
-# user_management_tool v1.0.0
+# user_management_tool
 
-**user_management_tool v1.0.0** is a Flutter-based application designed for user management.
+**user_management_tool** is a Flutter-based application designed for user management.
 
 ## Platform restrictions
 
-**user_management_tool v1.0.0** uses following Flutter packages
+**user_management_tool** uses following Flutter packages
 
 - [mongo_dart 0.7.4+1](https://pub.dev/packages/mongo_dart)
 - [easy_sidemenu 0.2.1](https://pub.dev/packages/easy_sidemenu)
