@@ -13,8 +13,8 @@ class UsernameField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         hintText: 'Username',
-        labelStyle: TextStyle(fontSize: 12),
-        contentPadding: EdgeInsets.symmetric(horizontal: 15),
+        labelStyle: const TextStyle(fontSize: 12),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 15),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blueGrey.shade100),
           borderRadius: BorderRadius.circular(20),

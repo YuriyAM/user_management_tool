@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:user_management_tool/globals.dart';
-import 'package:user_management_tool/models/User.dart';
-import 'package:user_management_tool/pages/HomePage.dart';
 import 'package:user_management_tool/providers/DatabaseProvider.dart';
 import 'package:user_management_tool/widgets/textfields/ConfirmPasswordField.dart';
 import 'package:user_management_tool/widgets/textfields/NewPasswordField.dart';
-import 'package:user_management_tool/widgets/textfields/PasswordField.dart';
 
 final passwordRegex = RegExp(r'^[a-zA-Z0-9!(),\-.\/:;?\\|]{8,}$');
 

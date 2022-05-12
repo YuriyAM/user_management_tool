@@ -1,5 +1,4 @@
 import 'package:user_management_tool/models/Credentials.dart';
-import 'package:user_management_tool/providers/DatabaseProvider.dart';
 
 class User {
   String username;

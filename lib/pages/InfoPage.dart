@@ -20,8 +20,8 @@ class InfoPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(height: 20),
-                    SizedBox(
+                    const SizedBox(height: 20),
+                    const SizedBox(
                         width: 300,
                         child: ListTile(
                           onTap: null,
@@ -32,7 +32,7 @@ class InfoPage extends StatelessWidget {
                             style: TextStyle(fontSize: 20),
                           ),
                         )),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     SizedBox(
                         width: 300,
                         child: Markdown(

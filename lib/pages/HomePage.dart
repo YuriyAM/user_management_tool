@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
-import 'package:user_management_tool/globals.dart';
 import 'package:user_management_tool/pages/AccountPage.dart';
 import 'package:user_management_tool/pages/InfoPage.dart';
-import 'package:user_management_tool/pages/LoginPage.dart';
 import 'package:user_management_tool/pages/UserListPage.dart';
 import 'package:user_management_tool/widgets/dialogs/LogoutDialog.dart';
 
@@ -67,10 +65,10 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: PageView(
               controller: page,
-              children: [
-                const AccountPage(),
-                const UserListPage(),
-                const InfoPage(),
+              children: const [
+                AccountPage(),
+                UserListPage(),
+                InfoPage(),
               ],
             ),
           ),

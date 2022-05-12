@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:user_management_tool/globals.dart';
 import 'package:user_management_tool/providers/DatabaseProvider.dart';
 import 'package:user_management_tool/models/User.dart';
 import 'package:user_management_tool/widgets/dialogs/CreateUserDialog.dart';
@@ -21,8 +20,10 @@ class _UserListPageState extends State<UserListPage> {
   }
 
   _addUser() async {
-    final user = await showDialog<dynamic>(
-        context: context, builder: (_) => CreateUserDialog());
+    await showDialog<dynamic>(
+      context: context,
+      builder: (_) => const CreateUserDialog(),
+    );
     setState(() {});
   }
 

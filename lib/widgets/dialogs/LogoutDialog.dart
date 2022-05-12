@@ -7,11 +7,11 @@ class LogoutDialog {
       content: const Text("Do you want to logout?"),
       actions: <Widget>[
         MaterialButton(
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
           onPressed: () => Navigator.of(context).pop(),
         ),
         MaterialButton(
-          child: Text('Yes'),
+          child: const Text('Yes'),
           onPressed: () {
             CURRENT_USER = null;
             Navigator.popUntil(

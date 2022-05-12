@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user_management_tool/globals.dart';
 import 'package:user_management_tool/models/Credentials.dart';
-import 'package:user_management_tool/models/User.dart';
-import 'package:user_management_tool/pages/CreatePasswordPage.dart';
-import 'package:user_management_tool/pages/HomePage.dart';
 import 'package:user_management_tool/providers/DatabaseProvider.dart';
 import 'package:user_management_tool/widgets/dialogs/LoginAlertDialog.dart';
 import 'package:user_management_tool/widgets/textfields/UsernameField.dart';

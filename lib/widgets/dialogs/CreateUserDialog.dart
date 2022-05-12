@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user_management_tool/models/User.dart';
 import 'package:user_management_tool/providers/DatabaseProvider.dart';
-import 'package:user_management_tool/widgets/dialogs/LoginAlertDialog.dart';
 
 class CreateUserDialog extends StatefulWidget {
   const CreateUserDialog({Key? key}) : super(key: key);
@@ -11,7 +10,7 @@ class CreateUserDialog extends StatefulWidget {
 }
 
 class _CreateUserDialogState extends State<CreateUserDialog> {
-  final TextEditingController username = new TextEditingController();
+  final username = TextEditingController();
   bool privileged = false;
   bool enabled = true;
 
@@ -22,11 +21,11 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.grey.shade100,
-      title: Text("New user"),
+      title: const Text("New user"),
       content: SingleChildScrollView(
         child: Column(children: <Widget>[
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
             child: Form(
               key: _formKey,
               child: TextFormField(
@@ -34,16 +33,16 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
                 controller: username,
                 autofocus: true,
                 validator: (value) => validator,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Username",
-                  labelStyle: const TextStyle(fontSize: 12),
+                  labelStyle: TextStyle(fontSize: 12),
                 ),
               ),
             ),
           ),
           Row(
             children: [
-              Text("Privileged user"),
+              const Text("Privileged user"),
               Checkbox(
                 value: privileged,
                 onChanged: (bool? value) => setState(() => privileged = value!),
@@ -52,7 +51,7 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
           ),
           Row(
             children: [
-              Text("Enable user"),
+              const Text("Enable user"),
               Checkbox(
                 value: enabled,
                 onChanged: (bool? value) => setState(() => enabled = value!),
@@ -63,11 +62,11 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
       ),
       actions: <Widget>[
         MaterialButton(
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
           onPressed: () => Navigator.of(context).pop(),
         ),
         MaterialButton(
-          child: Text('Add'),
+          child: const Text('Add'),
           onPressed: () => _addUser(),
         ),
       ],

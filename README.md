@@ -1,12 +1,31 @@
 # user_management_tool v1.0.0
 
-This project is a starting point for a Flutter application.
+**user_management_tool v1.0.0** is a Flutter-based application designed for user management.
 
-A few resources to get you started if this is your first Flutter project:
+## Platform restrictions
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+**user_management_tool v1.0.0** uses following Flutter packages
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [mongo_dart 0.7.4+1](https://pub.dev/packages/mongo_dart)
+- [easy_sidemenu 0.2.1](https://pub.dev/packages/easy_sidemenu)
+- [flutter_dotenv 5.0.2](https://pub.dev/packages/flutter_dotenv)
+- [flutter_markdown 0.6.10](https://pub.dev/packages/flutter_markdown)
+
+Therefore application can be run on following platforms:
+
+- `ANDROID`
+- `IOS`
+- `LINUX`
+- `MACOS`
+- `WINDOWS`
+
+## How to run
+
+1. Create MongoDB database instance with
+```
+docker-compose up -d
+```
+2. Build application for your platform with 
+```
+flutter run -d <PLATFORM>
+```

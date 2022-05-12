@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:user_management_tool/globals.dart';
-import 'package:user_management_tool/models/User.dart';
 import 'package:user_management_tool/providers/DatabaseProvider.dart';
 import 'package:user_management_tool/widgets/cards/UserCard.dart';
 import 'package:user_management_tool/widgets/textfields/ConfirmPasswordField.dart';

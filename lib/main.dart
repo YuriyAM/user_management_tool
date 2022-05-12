@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:user_management_tool/models/User.dart';
-import 'package:user_management_tool/pages/AccountPage.dart';
 import 'package:user_management_tool/pages/CreatePasswordPage.dart';
 import 'package:user_management_tool/pages/InfoPage.dart';
 import 'package:user_management_tool/pages/LoginPage.dart';

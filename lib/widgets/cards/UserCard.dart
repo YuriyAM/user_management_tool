@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user_management_tool/globals.dart';
 import 'package:user_management_tool/models/User.dart';
-import 'package:user_management_tool/pages/AccountPage.dart';
-import 'package:user_management_tool/providers/DatabaseProvider.dart';
 import 'package:user_management_tool/widgets/buttons/DeleteUserButton.dart';
 import 'package:user_management_tool/widgets/buttons/LockUserButton.dart';
 import 'package:user_management_tool/widgets/dialogs/EditUserDialog.dart';
@@ -11,7 +9,7 @@ class UserCard extends StatefulWidget {
   final User user;
   final Function notifyParent;
 
-  UserCard({Key? key, required this.user, required this.notifyParent})
+  const UserCard({Key? key, required this.user, required this.notifyParent})
       : super(key: key);
   @override
   _UserCardState createState() => _UserCardState();
@@ -30,11 +28,11 @@ class _UserCardState extends State<UserCard> {
           borderRadius: BorderRadius.circular(9),
         ),
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 5.0),
+          padding: const EdgeInsets.symmetric(vertical: 5.0),
           child: Row(
             children: <Widget>[
               Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: const Icon(
                     Icons.account_box,
                     size: 50,
@@ -58,7 +56,7 @@ class _UserCardState extends State<UserCard> {
                     Text(
                       "Role: ${widget.user.privileged! ? 'Admin' : 'User'}\n",
                       maxLines: 1,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         // color: Colors.white.withOpacity(0.3),
@@ -70,7 +68,7 @@ class _UserCardState extends State<UserCard> {
               Visibility(
                   visible: CURRENT_USER!.privileged!,
                   child: Padding(
-                      padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
+                      padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
                       child: LockUserButton(
                         notifyParent: () => widget.notifyParent(),
                         user: widget.user,
@@ -78,7 +76,7 @@ class _UserCardState extends State<UserCard> {
               Visibility(
                   visible: CURRENT_USER!.privileged!,
                   child: Padding(
-                      padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
+                      padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
                       child: DeleteUserButton(
                         notifyParent: () => widget.notifyParent(),
                         user: widget.user,

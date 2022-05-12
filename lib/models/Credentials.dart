@@ -1,4 +1,3 @@
-import 'package:user_management_tool/providers/DatabaseProvider.dart';
 import 'package:user_management_tool/models/User.dart';
 
 final passwordRegex = RegExp(r'^[a-zA-Z0-9!(),\-.\/:;?\\|]{8,}$');

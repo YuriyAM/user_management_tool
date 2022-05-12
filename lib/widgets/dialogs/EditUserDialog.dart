@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:user_management_tool/models/User.dart';
-import 'package:user_management_tool/providers/DatabaseProvider.dart';
-import 'package:user_management_tool/widgets/dialogs/LoginAlertDialog.dart';
 
 class EditUserDialog extends StatefulWidget {
   final User user;
@@ -16,28 +14,28 @@ class EditUserDialog extends StatefulWidget {
 }
 
 class _EditUserDialogState extends State<EditUserDialog> {
-  final TextEditingController username = new TextEditingController();
+  final username = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.grey.shade100,
-      title: Text("Edit user"),
+      title: const Text("Edit user"),
       content: SingleChildScrollView(
         child: Column(children: <Widget>[
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
             child: TextField(
               enabled: false,
               obscureText: false,
               controller: TextEditingController(text: widget.user.username),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Username",
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
             child: TextField(
               enabled: false,
               obscureText: true,
@@ -51,7 +49,7 @@ class _EditUserDialogState extends State<EditUserDialog> {
           ),
           Row(
             children: [
-              Text("Privileged user"),
+              const Text("Privileged user"),
               Checkbox(
                 value: widget.user.privileged,
                 onChanged: (bool? value) => setState(
@@ -62,7 +60,7 @@ class _EditUserDialogState extends State<EditUserDialog> {
           ),
           Row(
             children: [
-              Text("Enable user"),
+              const Text("Enable user"),
               Checkbox(
                 value: widget.user.enabled,
                 onChanged: (bool? value) => setState(
@@ -75,47 +73,16 @@ class _EditUserDialogState extends State<EditUserDialog> {
       ),
       actions: <Widget>[
         MaterialButton(
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
           onPressed: () => Navigator.of(context).pop(),
         ),
         MaterialButton(
-          child: Text('Save'),
+          child: const Text('Save'),
           onPressed: () => {},
         ),
       ],
     );
   }
-
-  _validateUser() async {
-    if (username.text == null || username.text.length < 3) {
-      return "Username is too small";
-    }
-    print("hellllloo");
-    final u = User(username: username.text);
-    if (await DatabaseProvider.findUser(u) != false) {
-      return "Username should be unique";
-    } else {
-      return null;
-    }
-  }
-
-  // _addUser() async {
-  //   validator = await _validateUser();
-  //   setState(() {});
-
-  //   if (!_formKey.currentState!.validate()) {
-  //     return null;
-  //   }
-
-  //   final u = User(
-  //     username: username.text,
-  //     enabled: enabled,
-  //     privileged: privileged,
-  //   );
-  //   await DatabaseProvider.insertUser(u);
-  //   username.clear();
-  //   Navigator.of(context).pop(u);
-  // }
 }
 
 RegExp ipRegExp =

@@ -1,7 +1,0 @@
-mongodb:
-  uri: "localhost"
-  port: 27017
-  username: "flutter"
-  password: "flutter"
-  database: "pmzi"
-  user_collection: "users"

@@ -36,8 +36,6 @@ dependencies:
 
   # MongoDB driver
   mongo_dart: ^0.7.4+1
-  # YAML reader to read variables and properties
-  yaml: ^3.1.0
   # Sidemenu
   easy_sidemenu: ^0.2.1
   # Support for .env file
