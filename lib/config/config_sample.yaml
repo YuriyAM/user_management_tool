@@ -1,0 +1,3 @@
+database:
+  uri: "localhost"
+  port: 27017
