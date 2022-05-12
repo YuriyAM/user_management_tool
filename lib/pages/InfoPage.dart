@@ -22,7 +22,7 @@ class InfoPage extends StatelessWidget {
                   children: <Widget>[
                     const SizedBox(height: 20),
                     const SizedBox(
-                        width: 300,
+                        width: 500,
                         child: ListTile(
                           onTap: null,
                           minLeadingWidth: 0,
@@ -34,7 +34,7 @@ class InfoPage extends StatelessWidget {
                         )),
                     const SizedBox(height: 20),
                     SizedBox(
-                        width: 300,
+                        width: 500,
                         child: Markdown(
                           data: snapshot.data!,
                           shrinkWrap: true,

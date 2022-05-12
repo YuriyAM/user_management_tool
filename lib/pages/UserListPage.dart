@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:user_management_tool/globals.dart';
 import 'package:user_management_tool/providers/DatabaseProvider.dart';
 import 'package:user_management_tool/models/User.dart';
 import 'package:user_management_tool/widgets/dialogs/CreateUserDialog.dart';
@@ -53,11 +54,13 @@ class _UserListPageState extends State<UserListPage> {
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
-        child: const Icon(Icons.add, color: Colors.white),
-        onPressed: () => _addUser(),
-      ),
+      floatingActionButton: CURRENT_USER!.privileged!
+          ? FloatingActionButton(
+              backgroundColor: Colors.blue,
+              child: const Icon(Icons.add, color: Colors.white),
+              onPressed: () => _addUser(),
+            )
+          : null,
     );
   }
 }
