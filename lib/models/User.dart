@@ -32,10 +32,9 @@ class User {
   makeAdmin() => privileged == true ? privileged = false : privileged = true;
 
   update(User u) {
+    username = u.username;
     password = u.password;
+    privileged = u.privileged;
     enabled = u.enabled;
   }
-
-  checkCredentials(Credentials creds) =>
-      username == creds.username && password == creds.password ? true : false;
 }

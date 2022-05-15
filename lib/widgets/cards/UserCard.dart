@@ -89,8 +89,10 @@ class _UserCardState extends State<UserCard> {
   }
 
   _editUser() async {
-    final user = await showDialog<dynamic>(
-        context: context, builder: (_) => EditUserDialog(user: widget.user));
+    await showDialog<dynamic>(
+      context: context,
+      builder: (_) => EditUserDialog(user: widget.user),
+    );
     setState(() {});
   }
 }
