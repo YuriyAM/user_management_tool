@@ -12,17 +12,22 @@ class Navigator:
         Navigator.routes[route] = page
 
     def set_next(route):
-        route, param = route.split("?") if "?" in route else (route, "")
         assert route in Navigator.routes.keys()
         Navigator.next = route
-        Navigator.param = param
 
     def set_home(route):
         assert route in Navigator.routes.keys()
 
     def push(route):
+        route, param = route.split("?") if "?" in route else (route, None)
         assert route in Navigator.routes.keys(),  "Route not found"
-        Navigator.routes[route].show()
+        assert "=" in param if param else True, "Invalid parameter value"
+
+        if (param):
+            param = {param.split("=")[0]: param.split("=")[1]}
+            Navigator.routes[route].show(param)
+        else:
+            Navigator.routes[route].show()
 
     def push_next():
         Navigator.routes[Navigator.next].show()

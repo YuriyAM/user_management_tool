@@ -23,7 +23,7 @@ class UserlistPage(Page):
         else:
             user = answers['userlist']
             assert isinstance(user, User)
-            Navigator.set_next(
+            Navigator.push(
                 '/account?username={0}'
                 .format(answers['userlist'].username)
             )
