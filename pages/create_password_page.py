@@ -1,5 +1,4 @@
 import re
-from models.credentials import Credentials
 from models.page import Page
 from models.user import User
 from providers.console_provider import ConsoleProvider
@@ -8,7 +7,7 @@ import inquirer
 from providers.navigator import Navigator
 from providers.user_provider import UserProvider
 
-from widgets.dialogs.create_password_dialog import CreatePasswordDialog
+from widgets.warnings.create_password_warning import CreatePasswordWarning
 from widgets.warnings.password_complexity_warning import PasswordComplexityWarning
 from widgets.warnings.password_created_warning import PasswordCreatedWarning
 from widgets.warnings.password_match_warning import PasswordMatchWarning
@@ -50,7 +49,7 @@ class CreatePasswordPage(Page):
             return
 
         ConsoleProvider.clear()
-        CreatePasswordDialog.show()
+        CreatePasswordWarning.show()
         CreatePasswordPage.prompt_new_password(user)
         PasswordCreatedWarning.show()
         Navigator.set_next('/home')
