@@ -13,4 +13,13 @@ class UserProvider:
         UserProvider.CURRENT_USER = user
 
     def check_permissions():
-        return UserProvider.CURRENT_USER.privileged
+        return UserProvider.CURRENT_USER.privileged and UserProvider.CURRENT_USER.enabled
+
+    def check_allowed():
+        return UserProvider.CURRENT_USER.enabled
+
+    def check_registered():
+        if (UserProvider.CURRENT_USER.password == ""):
+            return False
+        else:
+            return True
