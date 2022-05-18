@@ -1,37 +1,56 @@
-from email import message
+import re
 from models.credentials import Credentials
 from models.page import Page
+from models.user import User
 from providers.console_provider import ConsoleProvider
 import providers.database_provider as db
 import inquirer
+from providers.navigator import Navigator
+from providers.user_provider import UserProvider
 
 from widgets.dialogs.create_password_dialog import CreatePasswordDialog
+from widgets.warnings.password_complexity_warning import PasswordComplexityWarning
+from widgets.warnings.password_created_warning import PasswordCreatedWarning
+from widgets.warnings.password_match_warning import PasswordMatchWarning
+from widgets.warnings.access_denied_warning import AccessDeniedWarning
 
 
 class CreatePasswordPage(Page):
 
-    @staticmethod
-    def prompt_new_password():
-        questions = [
-            inquirer.Text('new_password', message="Enter new password"),
-            inquirer.Password('new_password_confirm',
-                              message="Confirm password")
-        ]
-        answers = inquirer.prompt(questions)
+    password_regex = r'^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()<>/|\.,]).{8,})$'
 
-        creds = Credentials(answers['username'], answers['password'])
-        return db.check_credentials(creds)
+    def check_permissions(user):
+        if (UserProvider.get_user().username != user.username):
+            AccessDeniedWarning.show()
+            return False
+        return True
 
-    @staticmethod
-    def show():
+    def prompt_new_password(user):
+        assert isinstance(user, User), 'Argument of wrong type!'
+        password_isset = False
+        while(not password_isset):
+            new_password = inquirer.password(message="Enter new password")
+            if (not re.match(CreatePasswordPage.password_regex, new_password)):
+                PasswordComplexityWarning.show()
+                continue
+
+            confirm_password = inquirer.password(message="Confirm password")
+            if (confirm_password != new_password):
+                PasswordMatchWarning.show()
+                continue
+            user.password = new_password
+            password_isset = True
+        db.update_user(user)
+
+    def show(param):
+        assert 'username' in param.keys(), "Missing parameter: 'username'"
+        user = db.find_user(param['username'])
+        if (not CreatePasswordPage.check_permissions(user)):
+            Navigator.set_next('/login')
+            return
+
         ConsoleProvider.clear()
-        counter = 3
         CreatePasswordDialog.show()
-        while(counter):
-            user = CreatePasswordPage.prompt_new_password()
-            if (user is None):
-                print("Username ot password is incorrect!")
-            elif (user.password == ""):
-                return
-            else:
-                print("User logged in")
+        CreatePasswordPage.prompt_new_password(user)
+        PasswordCreatedWarning.show()
+        Navigator.set_next('/home')
