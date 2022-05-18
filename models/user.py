@@ -1,5 +1,5 @@
 class User:
-    def __init__(self, username, password='', privileged=False, enabled=True):
+    def __init__(self, username, password='', privileged=False, enabled=False):
         self.username = username
         self.password = password
         self.privileged = privileged
