@@ -3,6 +3,7 @@ from pages.account_page import AccountPage
 from pages.add_user_page import AddUserPage
 from pages.create_password_page import CreatePasswordPage
 from pages.delete_user_page import DeleteUserPage
+from pages.edit_user_page import EditUserPage
 from pages.home_page import HomePage
 from pages.info_page import InfoPage
 from pages.login_page import LoginPage
@@ -25,6 +26,7 @@ if __name__ == "__main__":
     Navigator.add_route('/createpassword', CreatePasswordPage)
     Navigator.add_route('/viewuser', ViewUserPage)
     Navigator.add_route('/adduser', AddUserPage)
+    Navigator.add_route('/edituser', EditUserPage)
     Navigator.add_route('/deleteuser', DeleteUserPage)
     Navigator.add_route('/home', HomePage)
     Navigator.add_route('/info', InfoPage)

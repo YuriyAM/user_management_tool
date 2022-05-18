@@ -1,7 +1,7 @@
 import inquirer
 
 
-class UserEditedWarning:
+class UserDeletedWarning:
     def show():
         inquirer.list_input(
             "User was sucessfully deleted",

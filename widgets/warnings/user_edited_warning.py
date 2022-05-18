@@ -1,7 +1,7 @@
 import inquirer
 
 
-class UserEditedDailog:
+class UserEditedWarning:
     def show():
         inquirer.list_input(
             "User was edited",
