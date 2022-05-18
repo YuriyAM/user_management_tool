@@ -1,9 +1,13 @@
 import inquirer
+from providers.console_provider import ConsoleProvider
+import providers.database_provider as db
+
 from models.page import Page
 from models.user import User
+
 from providers.navigator import Navigator
 from providers.user_provider import UserProvider
-from providers import database_provider as db
+
 from widgets.warnings.access_denied_warning import AccessDeniedWarning
 from widgets.warnings.user_created_warning import UserCreatedWarning
 from widgets.warnings.wrong_username_warning import WrongUsernameWarning
@@ -41,6 +45,7 @@ class AddUserPage(Page):
         if (not AddUserPage.check_permissions()):
             Navigator.set_next('/home')
             return
+        ConsoleProvider.clear()
         AddUserPage.prompt_user()
         UserCreatedWarning.show()
         Navigator.set_next('/home')

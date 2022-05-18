@@ -1,5 +1,4 @@
 # Dummy class to clear console screen
-
 import os
 
 

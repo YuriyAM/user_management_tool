@@ -1,11 +1,12 @@
+import inquirer
+import providers.database_provider as db
+
 from models.credentials import Credentials
 from models.page import Page
-from models.user import User
+
 from providers.console_provider import ConsoleProvider
 from providers.navigator import Navigator
-import providers.database_provider as db
 from providers.user_provider import UserProvider
-import inquirer
 
 from widgets.dialogs.login_dialog import LoginDialog
 from widgets.warnings.login_denied_warning import LoginDeniedWarning

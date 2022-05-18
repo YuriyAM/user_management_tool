@@ -1,10 +1,11 @@
 import os
 import inquirer
-from models.page import Page
 from rich.markdown import Markdown
 from rich.console import Console
-from providers.console_provider import ConsoleProvider
 
+from models.page import Page
+
+from providers.console_provider import ConsoleProvider
 from providers.navigator import Navigator
 
 

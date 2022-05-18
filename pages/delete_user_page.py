@@ -1,8 +1,11 @@
 import inquirer
+import providers.database_provider as db
+
 from models.page import Page
+
 from providers.navigator import Navigator
 from providers.user_provider import UserProvider
-from providers import database_provider as db
+
 from widgets.warnings.access_denied_warning import AccessDeniedWarning
 from widgets.warnings.user_deleted_warning import UserDeletedWarning
 

@@ -1,7 +1,10 @@
 import inquirer
+
 from models.page import Page
+
 from providers.console_provider import ConsoleProvider
 from providers.navigator import Navigator
+from widgets.dialogs.logout_dialog import LogoutDialog
 
 
 class HomePage(Page):
@@ -27,4 +30,5 @@ class HomePage(Page):
         elif(choice['page'] == 'Info page'):
             Navigator.set_next('/info')
         elif(choice['page'] == 'Logout'):
-            Navigator.push('/logout')
+            LogoutDialog.show()
+            Navigator.set_next('/home')

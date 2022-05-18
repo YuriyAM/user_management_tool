@@ -3,12 +3,12 @@ import inquirer
 from providers.console_provider import ConsoleProvider
 
 
-class LoginDialog:
+class LogoutDialog:
     def show():
         ConsoleProvider.clear()
         choice = inquirer.list_input(
-            message="Login into app?",
-            choices=["Login", "Exit"]
+            "Do you want to log out?",
+            choices=['Yes', 'No']
         )
-        if (choice == 'Exit'):
+        if (choice == 'Yes'):
             exit(0)

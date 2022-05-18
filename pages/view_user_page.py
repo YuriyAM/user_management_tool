@@ -1,11 +1,12 @@
-from inspect import cleandoc
 import inquirer
+import providers.database_provider as db
+
 from models.page import Page
-from models.user import User
-from providers import database_provider as db
+
 from providers.console_provider import ConsoleProvider
 from providers.navigator import Navigator
 from providers.user_provider import UserProvider
+
 from widgets.warnings.access_denied_warning import AccessDeniedWarning
 
 

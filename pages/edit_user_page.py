@@ -1,10 +1,12 @@
 import inquirer
+import providers.database_provider as db
+
 from models.page import Page
 from models.user import User
-from pages.delete_user_page import DeleteUserPage
-from providers import database_provider as db
+
 from providers.navigator import Navigator
 from providers.user_provider import UserProvider
+
 from widgets.warnings.access_denied_warning import AccessDeniedWarning
 from widgets.warnings.user_edited_warning import UserEditedWarning
 
@@ -39,7 +41,7 @@ class EditUserPage(Page):
 
     def show(param):
         assert 'username' in param.keys(), "Missing parameter: 'username'"
-        if (not DeleteUserPage.check_permissions()):
+        if (not EditUserPage.check_permissions()):
             Navigator.set_next('/home')
             return
 

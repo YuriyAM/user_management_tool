@@ -1,8 +1,9 @@
 from pymongo import MongoClient
+
 from models.credentials import Credentials
 from models.user import User
 
-from providers.dotenv_provider import CONFIG, ROOT_DIR
+from providers.dotenv_provider import CONFIG
 
 
 def connect():

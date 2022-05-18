@@ -1,9 +1,11 @@
 import re
+import inquirer
+import providers.database_provider as db
+
 from models.page import Page
 from models.user import User
+
 from providers.console_provider import ConsoleProvider
-import providers.database_provider as db
-import inquirer
 from providers.navigator import Navigator
 from providers.user_provider import UserProvider
 

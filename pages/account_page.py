@@ -1,14 +1,12 @@
-from email import message
-from re import L
+import inquirer
+import providers.database_provider as db
+
 from models.credentials import Credentials
 from models.page import Page
-from providers.console_provider import ConsoleProvider
-import providers.database_provider as db
-import inquirer
 
+from providers.console_provider import ConsoleProvider
 from providers.navigator import Navigator
 from providers.user_provider import UserProvider
-from widgets.warnings.access_denied_warning import AccessDeniedWarning
 
 
 class AccountPage(Page):
