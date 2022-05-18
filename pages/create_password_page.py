@@ -18,13 +18,7 @@ class CreatePasswordPage(Page):
 
     password_regex = r'^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()<>/|\.,]).{8,})$'
 
-    def check_permissions(user):
-        if (UserProvider.get_user().username != user.username):
-            AccessDeniedWarning.show()
-            return False
-        return True
-
-    def prompt_new_password(user):
+    def prompt_password(user):
         assert isinstance(user, User), 'Argument of wrong type!'
         password_isset = False
         while(not password_isset):
@@ -41,15 +35,10 @@ class CreatePasswordPage(Page):
             password_isset = True
         db.update_user(user)
 
-    def show(param):
-        assert 'username' in param.keys(), "Missing parameter: 'username'"
-        user = db.find_user(param['username'])
-        if (not CreatePasswordPage.check_permissions(user)):
-            Navigator.set_next('/login')
-            return
-
+    def show():
+        user = UserProvider.get_user()
         ConsoleProvider.clear()
         CreatePasswordWarning.show()
-        CreatePasswordPage.prompt_new_password(user)
+        CreatePasswordPage.prompt_password(user)
         PasswordCreatedWarning.show()
         Navigator.set_next('/home')

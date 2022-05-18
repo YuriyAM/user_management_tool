@@ -42,10 +42,7 @@ class LoginPage(Page):
             LoginDeniedWarning.show()
             Navigator.set_next('/login')
         elif (not UserProvider.check_registered()):
-            Navigator.push(
-                '/createpassword?username={}'
-                .format(user.username)
-            )
+            Navigator.push('/createpassword')
             Navigator.set_next('/home')
         else:
             Navigator.set_next('/home')
