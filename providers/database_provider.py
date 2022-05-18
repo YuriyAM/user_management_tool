@@ -1,4 +1,3 @@
-import os
 from pymongo import MongoClient
 from models.credentials import Credentials
 from models.user import User
@@ -28,10 +27,16 @@ def find_user(username):
     return user
 
 
-def insert_user(user):
+def add_user(user):
     assert isinstance(user, User), 'Argument of wrong type!'
     db = connect()
-    return db['users'].insert_one(User.__dict__)
+    return db['users'].insert_one(user.__dict__)
+
+
+def update_user(user):
+    assert isinstance(user, User), 'Argument of wrong type!'
+    db = connect()
+    return db['users'].replace_one({'username': user.username}, user.__dict__)
 
 
 def delete_user(user):
@@ -54,7 +59,7 @@ def check_credentials(creds):
 
 def init():
     if (not find_user("admin")):
-        admin = User("admin", privivileged=True)
-        insert_user(admin)
+        admin = User("admin", privivileged=True, enabled=True)
+        add_user(admin)
     else:
         print("Database already initialized")
