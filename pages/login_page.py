@@ -8,6 +8,7 @@ from providers.user_provider import UserProvider
 import inquirer
 
 from widgets.dialogs.login_dialog import LoginDialog
+from widgets.warnings.login_denied_warning import LoginDeniedWarning
 
 
 class LoginPage(Page):
@@ -31,13 +32,20 @@ class LoginPage(Page):
         successful_login = False
         while(not successful_login):
             user = LoginPage.prompt_credentials()
-            if (user is None):
-                print("Username ot password is incorrect!")
-            else:
+            if (user):
                 UserProvider.set_user(user)
                 successful_login = True
+            else:
+                print("Username ot password is incorrect!")
 
-        if (UserProvider.get_user().password == ""):
-            Navigator.push('/createpassword')
-
-        Navigator.set_next('/home')
+        if (not UserProvider.check_allowed()):
+            LoginDeniedWarning.show()
+            Navigator.set_next('/login')
+        elif (not UserProvider.check_registered()):
+            Navigator.push(
+                '/createpassword?username={}'
+                .format(user.username)
+            )
+            Navigator.set_next('/home')
+        else:
+            Navigator.set_next('/home')

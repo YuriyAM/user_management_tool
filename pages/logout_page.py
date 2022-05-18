@@ -7,15 +7,11 @@ from providers.navigator import Navigator
 class LogoutPage(Page):
     def show():
         ConsoleProvider.clear()
-        questions = [
-            inquirer.List(
-                'logout',
-                message="Do you want to log out?",
-                choices=["Yes", "No"]
-            )
-        ]
-        answers = inquirer.prompt(questions)
-        if (answers['logout'] == 'Yes'):
+        logout = inquirer.confirm(
+            message="Do you want to log out?",
+            default=False
+        )
+        if (logout == True):
             exit(0)
-        elif (answers['logout'] == 'No'):
+        elif (logout == False):
             Navigator.set_next('/home')
