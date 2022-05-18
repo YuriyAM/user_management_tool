@@ -11,3 +11,6 @@ class UserProvider:
     def set_user(user):
         assert isinstance(user, User), "Current user has wrong data type"
         UserProvider.CURRENT_USER = user
+
+    def check_permissions():
+        return UserProvider.CURRENT_USER.privileged

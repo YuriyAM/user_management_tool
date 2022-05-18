@@ -12,7 +12,6 @@ class Navigator:
         Navigator.routes[route] = page
 
     def set_next(route):
-        assert route in Navigator.routes.keys()
         Navigator.next = route
 
     def set_home(route):
@@ -30,7 +29,7 @@ class Navigator:
             Navigator.routes[route].show()
 
     def push_next():
-        Navigator.routes[Navigator.next].show()
+        Navigator.push(Navigator.next)
 
     def push_home():
-        Navigator.routes[Navigator.home].show()
+        Navigator.push(Navigator.home)
