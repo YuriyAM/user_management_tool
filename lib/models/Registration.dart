@@ -28,7 +28,7 @@ class Registration {
       : username = user.username,
         key = user.username,
         remained = 10,
-        registered = user.enabled! ? true : false;
+        registered = user.privileged! ? true : false;
 
   Registration.fromMap(Map<String, dynamic> map)
       : username = map['username'],
