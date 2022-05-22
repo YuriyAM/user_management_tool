@@ -1,6 +1,18 @@
 # user_management_tool
 
-**user_management_tool** is a Flutter-based application designed for user management.
+This is a trialware version of original **user_management_tool** application.
+
+This version implements trialware licensing model with the secret key generated with Caesar cipher.
+
+By default product key equals to username shifted by 3 digits to the left.  
+Example:
+- username: **testuser**
+- product key: **qbpqrpbo**
+
+
+## Compatibility
+
+The trialware version supports backward compatibility.
 
 ## Platform restrictions
 
