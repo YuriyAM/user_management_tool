@@ -64,11 +64,6 @@ class RegisterProvider {
     return r == null ? false : true;
   }
 
-  static Future<int> checkRemained(User user) async {
-    final reg = await find(Registration.fromUser(user));
-    return reg.remained;
-  }
-
   static find(Registration reg) async {
     var r = await collection.findOne({"username": reg.username});
     if (r != null) {

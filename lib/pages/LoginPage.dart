@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:user_management_tool/globals.dart';
 import 'package:user_management_tool/models/Credentials.dart';
+import 'package:user_management_tool/models/Registration.dart';
 import 'package:user_management_tool/models/User.dart';
 import 'package:user_management_tool/providers/DatabaseProvider.dart';
 import 'package:user_management_tool/providers/RegisterProvider.dart';
@@ -81,6 +82,19 @@ class _LoginPageState extends State<LoginPage> {
         builder: (_) => const RegisterSoftwareDialog(),
       );
       setState(() {});
+    }
+
+    var reg = await RegisterProvider.find(Registration.fromUser(u));
+    if (reg.registered == false && reg.remained > 0) {
+      await LoginAlertDialog(
+        content:
+            """This is the trial version of software. After ${reg.remained} more login(s) you will have to register this product.""",
+      ).show(context);
+    } else if (reg.registered == false && reg.remained == 0) {
+      await LoginAlertDialog(
+        content:
+            """This is the trial version of software. On the next login you will have to register this product.""",
+      ).show(context);
     }
 
     if (u.password == '') {
