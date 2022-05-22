@@ -32,7 +32,7 @@ class RegisterProvider {
     var reg = await find(Registration.fromUser(user));
     if (reg == false) {
       reg = Registration.fromUser(user);
-      insert(reg);
+      await insert(reg);
     }
 
     if (reg.registered == true) {
@@ -62,6 +62,11 @@ class RegisterProvider {
     var r =
         await collection.findOne({"username": reg.username, "key": reg.key});
     return r == null ? false : true;
+  }
+
+  static Future<int> checkRemained(User user) async {
+    final reg = await find(Registration.fromUser(user));
+    return reg.remained;
   }
 
   static find(Registration reg) async {
