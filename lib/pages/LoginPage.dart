@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:user_management_tool/globals.dart';
 import 'package:user_management_tool/models/Credentials.dart';
+import 'package:user_management_tool/models/User.dart';
 import 'package:user_management_tool/providers/DatabaseProvider.dart';
+import 'package:user_management_tool/providers/RegisterProvider.dart';
 import 'package:user_management_tool/widgets/dialogs/LoginAlertDialog.dart';
+import 'package:user_management_tool/widgets/dialogs/RegisterSoftwareDialog.dart';
 import 'package:user_management_tool/widgets/textfields/UsernameField.dart';
 import 'package:user_management_tool/widgets/textfields/PasswordField.dart';
 
@@ -38,6 +41,11 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  checkRegistration() async {
+    User u = User(username: username.text);
+    await RegisterProvider.login(u);
+  }
+
   loginUser() async {
     Credentials creds =
         Credentials(username: username.text, password: password.text);
@@ -47,20 +55,38 @@ class _LoginPageState extends State<LoginPage> {
 
     var u = await DatabaseProvider.checkCredentials(creds);
 
+    // If user cannot login
     if (u == false) {
       await LoginAlertDialog(content: "User or password is incorrect")
           .show(context);
+      return;
     } else if (u.enabled == false) {
       await LoginAlertDialog(
         content:
             "User is disabled. Please, contact your administrator for more details.",
       ).show(context);
-    } else if (u.password == '') {
-      CURRENT_USER = u;
+      return;
+    }
+
+    // If user is able to login, but should register
+    CURRENT_USER = u;
+
+    if (await RegisterProvider.login(u) == false) {
+      await LoginAlertDialog(
+        content: "Please, register software",
+      ).show(context);
+      await showDialog<dynamic>(
+        barrierDismissible: false,
+        context: context,
+        builder: (_) => const RegisterSoftwareDialog(),
+      );
+      setState(() {});
+    }
+
+    if (u.password == '') {
       await LoginAlertDialog(content: "Please, create password").show(context);
       Navigator.pushNamed(context, '/change_password');
     } else {
-      CURRENT_USER = u;
       Navigator.pushNamed(context, '/home');
     }
   }
