@@ -6,11 +6,13 @@ import 'package:user_management_tool/pages/LoginPage.dart';
 import 'package:user_management_tool/pages/UserListPage.dart';
 import 'package:user_management_tool/providers/DatabaseProvider.dart';
 import 'package:user_management_tool/pages/HomePage.dart';
+import 'package:user_management_tool/providers/RegisterProvider.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
   // WidgetsFlutterBinding.ensureInitialized();
   await DatabaseProvider.init();
+  await RegisterProvider.init();
   runApp(const MyApp());
 }
 

@@ -1,7 +1,9 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:user_management_tool/models/Credentials.dart';
 import 'package:mongo_dart/mongo_dart.dart';
+import 'package:user_management_tool/models/Registration.dart';
 import 'package:user_management_tool/models/User.dart';
+import 'package:user_management_tool/providers/RegisterProvider.dart';
 
 class DatabaseProvider {
   static var db, userCollection;
@@ -66,6 +68,7 @@ class DatabaseProvider {
   static insertUser(User user) async {
     if (await findUser(user) == false) {
       await userCollection.insertOne(user.toMap());
+      await RegisterProvider.insert(Registration.fromUser(user));
       return true;
     } else {
       return false;
@@ -74,11 +77,18 @@ class DatabaseProvider {
 
   static updateUser(User user) async {
     await userCollection.replaceOne({"username": user.username}, user.toMap());
+
+    // If user become admin, change their status to 'registered'
+    var reg = await RegisterProvider.find(Registration.fromUser(user));
+    reg.registered = user.privileged;
+    await RegisterProvider.update(reg);
+
     return true;
   }
 
   static deleteUser(User user) async {
     await userCollection.remove(where.eq('username', user.username));
+    await RegisterProvider.delete(Registration.fromUser(user));
     return true;
   }
 }
