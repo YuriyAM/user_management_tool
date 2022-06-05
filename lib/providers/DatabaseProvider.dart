@@ -1,16 +1,14 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:user_management_tool/globals.dart';
 import 'package:user_management_tool/models/Credentials.dart';
 import 'package:mongo_dart/mongo_dart.dart';
+import 'package:user_management_tool/models/Logger.dart';
+import 'package:user_management_tool/models/RegisterLogAction.dart';
 import 'package:user_management_tool/models/User.dart';
+import 'package:user_management_tool/providers/RegisterLogProvider.dart';
 
 class DatabaseProvider {
   static var db, userCollection;
-
-  // MongoDatabase({
-  //   File configFile = File('pubspec.yaml');
-  //   String yamlString = configFile.readAsStringSync();
-  //   Map yaml = loadYaml(yamlString);
-  // });
 
   static init() async {
     await connect();
@@ -66,6 +64,10 @@ class DatabaseProvider {
   static insertUser(User user) async {
     if (await findUser(user) == false) {
       await userCollection.insertOne(user.toMap());
+      // Handle database init
+      if (CURRENT_USER != null) {
+        RegisterLogProvider.insert(Logger(action: RegisterLogAction.ADD_USER));
+      }
       return true;
     } else {
       return false;
@@ -78,6 +80,7 @@ class DatabaseProvider {
   }
 
   static deleteUser(User user) async {
+    await RegisterLogProvider.insert(Logger(action: RegisterLogAction.REMOVE_USER));
     await userCollection.remove(where.eq('username', user.username));
     return true;
   }

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:user_management_tool/models/Logger.dart';
+import 'package:user_management_tool/models/OperationalLogAction.dart';
 import 'package:user_management_tool/providers/FileProvider.dart';
+import 'package:user_management_tool/providers/OperationalLogProvider.dart';
 
 class InfoPage extends StatelessWidget {
   const InfoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    OperationalLogProvider.insert(Logger(action: OperationalLogAction.OPEN_INFO_PAGE));
     return FutureBuilder<String>(
         future: FileProvider.load("README.md"),
         builder: (context, snapshot) {

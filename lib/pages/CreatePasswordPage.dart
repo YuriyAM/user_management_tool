@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:user_management_tool/globals.dart';
+import 'package:user_management_tool/models/Logger.dart';
+import 'package:user_management_tool/models/OperationalLogAction.dart';
+import 'package:user_management_tool/models/RegisterLogAction.dart';
 import 'package:user_management_tool/providers/DatabaseProvider.dart';
+import 'package:user_management_tool/providers/OperationalLogProvider.dart';
+import 'package:user_management_tool/providers/RegisterLogProvider.dart';
 import 'package:user_management_tool/widgets/textfields/ConfirmPasswordField.dart';
 import 'package:user_management_tool/widgets/textfields/NewPasswordField.dart';
 
@@ -21,6 +26,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    OperationalLogProvider.insert(Logger(action: OperationalLogAction.OPEN_PASSWORD_PAGE));
     return Material(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -62,6 +68,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   }
 
   _createPassword(String newPassword) async {
+    RegisterLogProvider.insert(Logger(action: RegisterLogAction.CHANGE_PASSWORD));
     CURRENT_USER?.password = newPassword;
     DatabaseProvider.updateUser(CURRENT_USER!);
     Navigator.pushNamed(context, '/home');

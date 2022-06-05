@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:user_management_tool/models/Logger.dart';
+import 'package:user_management_tool/models/RegisterLogAction.dart';
 import 'package:user_management_tool/models/User.dart';
 import 'package:user_management_tool/providers/DatabaseProvider.dart';
+import 'package:user_management_tool/providers/RegisterLogProvider.dart';
 
 class CreateUserDialog extends StatefulWidget {
   const CreateUserDialog({Key? key}) : super(key: key);
@@ -107,5 +110,3 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
   }
 }
 
-RegExp ipRegExp =
-    RegExp(r"^((25[0-5]|(2[0-4]|1[0-9]|[1-9]|)[0-9])(\.(?!$)|$)){4}$");

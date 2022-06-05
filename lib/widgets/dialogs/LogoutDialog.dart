@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:user_management_tool/globals.dart';
+import 'package:user_management_tool/models/Logger.dart';
+import 'package:user_management_tool/models/OperationalLogAction.dart';
+import 'package:user_management_tool/models/RegisterLogAction.dart';
+import 'package:user_management_tool/providers/OperationalLogProvider.dart';
+import 'package:user_management_tool/providers/RegisterLogProvider.dart';
 
 class LogoutDialog {
   show(BuildContext context) {
@@ -13,6 +18,7 @@ class LogoutDialog {
         MaterialButton(
           child: const Text('Yes'),
           onPressed: () {
+            RegisterLogProvider.insert(Logger(action: RegisterLogAction.LOG_OFF));
             CURRENT_USER = null;
             Navigator.popUntil(
               context,

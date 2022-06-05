@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:user_management_tool/models/Logger.dart';
+import 'package:user_management_tool/models/RegisterLogAction.dart';
 import 'package:user_management_tool/models/User.dart';
 import 'package:user_management_tool/providers/DatabaseProvider.dart';
+import 'package:user_management_tool/providers/RegisterLogProvider.dart';
 
 class EditUserDialog extends StatefulWidget {
   final User user;
@@ -97,6 +100,7 @@ class _EditUserDialogState extends State<EditUserDialog> {
 
   _saveUser(User userData) async {
     widget.user.update(userData);
+    RegisterLogProvider.insert(Logger(action: RegisterLogAction.CHANGE_PRIVILEGES));
     await DatabaseProvider.updateUser(userData);
     Navigator.of(context).pop();
   }

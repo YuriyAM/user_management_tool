@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:user_management_tool/globals.dart';
+import 'package:user_management_tool/models/Logger.dart';
+import 'package:user_management_tool/models/OperationalLogAction.dart';
 import 'package:user_management_tool/providers/DatabaseProvider.dart';
 import 'package:user_management_tool/models/User.dart';
+import 'package:user_management_tool/providers/OperationalLogProvider.dart';
 import 'package:user_management_tool/widgets/dialogs/CreateUserDialog.dart';
 import 'package:user_management_tool/widgets/cards/UserCard.dart';
 
@@ -30,6 +33,7 @@ class _UserListPageState extends State<UserListPage> {
 
   @override
   Widget build(BuildContext context) {
+    OperationalLogProvider.insert(Logger(action: OperationalLogAction.OPEN_USER_LIST));
     return Scaffold(
       // appBar: AppBar(),
       body: FutureBuilder<List>(

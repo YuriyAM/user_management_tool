@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:user_management_tool/globals.dart';
 import 'package:user_management_tool/models/Credentials.dart';
+import 'package:user_management_tool/models/Logger.dart';
+import 'package:user_management_tool/models/RegisterLogAction.dart';
 import 'package:user_management_tool/providers/DatabaseProvider.dart';
+import 'package:user_management_tool/providers/RegisterLogProvider.dart';
 import 'package:user_management_tool/widgets/dialogs/LoginAlertDialog.dart';
 import 'package:user_management_tool/widgets/textfields/UsernameField.dart';
 import 'package:user_management_tool/widgets/textfields/PasswordField.dart';
@@ -57,10 +60,12 @@ class _LoginPageState extends State<LoginPage> {
       ).show(context);
     } else if (u.password == '') {
       CURRENT_USER = u;
+      RegisterLogProvider.insert(Logger(action: RegisterLogAction.LOG_IN));
       await LoginAlertDialog(content: "Please, create password").show(context);
       Navigator.pushNamed(context, '/change_password');
     } else {
       CURRENT_USER = u;
+      RegisterLogProvider.insert(Logger(action: RegisterLogAction.LOG_IN));
       Navigator.pushNamed(context, '/home');
     }
   }

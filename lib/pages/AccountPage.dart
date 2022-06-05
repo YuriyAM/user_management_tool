@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:user_management_tool/globals.dart';
+import 'package:user_management_tool/models/Logger.dart';
+import 'package:user_management_tool/models/OperationalLogAction.dart';
+import 'package:user_management_tool/models/RegisterLogAction.dart';
 import 'package:user_management_tool/providers/DatabaseProvider.dart';
+import 'package:user_management_tool/providers/OperationalLogProvider.dart';
+import 'package:user_management_tool/providers/RegisterLogProvider.dart';
 import 'package:user_management_tool/widgets/cards/UserCard.dart';
 import 'package:user_management_tool/widgets/textfields/ConfirmPasswordField.dart';
 import 'package:user_management_tool/widgets/textfields/NewPasswordField.dart';
@@ -23,6 +28,7 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
+    OperationalLogProvider.insert(Logger(action: OperationalLogAction.OPEN_ACCOUNT_PAGE));
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -99,6 +105,7 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   _updatePassword(String newPassword) async {
+    RegisterLogProvider.insert(Logger(action: RegisterLogAction.CHANGE_PASSWORD));
     CURRENT_USER?.password = newPassword;
     DatabaseProvider.updateUser(CURRENT_USER!);
     Navigator.pushNamed(context, '/home');

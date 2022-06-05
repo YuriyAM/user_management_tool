@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
+import 'package:user_management_tool/models/Logger.dart';
+import 'package:user_management_tool/models/OperationalLogAction.dart';
 import 'package:user_management_tool/pages/AccountPage.dart';
 import 'package:user_management_tool/pages/InfoPage.dart';
 import 'package:user_management_tool/pages/UserListPage.dart';
+import 'package:user_management_tool/providers/OperationalLogProvider.dart';
 import 'package:user_management_tool/widgets/dialogs/LogoutDialog.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,6 +20,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    OperationalLogProvider.insert(Logger(action: OperationalLogAction.OPEN_HOME_PAGE));
     return Scaffold(
       body: Row(
         mainAxisAlignment: MainAxisAlignment.start,
