@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user_management_tool/globals.dart';
+import 'package:user_management_tool/models/Credentials.dart';
 import 'package:user_management_tool/models/Logger.dart';
 import 'package:user_management_tool/models/OperationalLogAction.dart';
 import 'package:user_management_tool/models/RegisterLogAction.dart';
@@ -7,6 +8,7 @@ import 'package:user_management_tool/providers/DatabaseProvider.dart';
 import 'package:user_management_tool/providers/OperationalLogProvider.dart';
 import 'package:user_management_tool/providers/RegisterLogProvider.dart';
 import 'package:user_management_tool/widgets/cards/UserCard.dart';
+import 'package:user_management_tool/widgets/dialogs/LoginAlertDialog.dart';
 import 'package:user_management_tool/widgets/textfields/ConfirmPasswordField.dart';
 import 'package:user_management_tool/widgets/textfields/NewPasswordField.dart';
 import 'package:user_management_tool/widgets/textfields/OldPasswordField.dart';
@@ -28,7 +30,8 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    OperationalLogProvider.insert(Logger(action: OperationalLogAction.OPEN_ACCOUNT_PAGE));
+    OperationalLogProvider.insert(
+        Logger(action: OperationalLogAction.OPEN_ACCOUNT_PAGE));
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,7 +73,6 @@ class _AccountPageState extends State<AccountPage> {
             width: 300,
             child: OldPasswordField(
               controller: _oldPassword,
-              setValidity: (validity) => _validOldPassword = validity,
             ),
           ),
           const SizedBox(height: 20),
@@ -93,7 +95,7 @@ class _AccountPageState extends State<AccountPage> {
           ElevatedButton(
             onLongPress: null,
             onPressed: () {
-              _validOldPassword && _validPassword && _validConfirmPassword
+              _validPassword && _validConfirmPassword
                   ? _updatePassword(_newPassword.text)
                   : null;
             },
@@ -104,10 +106,26 @@ class _AccountPageState extends State<AccountPage> {
     );
   }
 
+  _validateOldPassword() async {
+    Credentials creds = Credentials(
+        username: CURRENT_USER!.username, password: _oldPassword.text);
+    var u = await DatabaseProvider.checkCredentials(creds);
+    if (u == false) {
+      await LoginAlertDialog(content: "Please, enter correct current password")
+          .show(context);
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   _updatePassword(String newPassword) async {
+    if (!await _validateOldPassword()) {
+      return null;
+    }
     RegisterLogProvider.insert(Logger(action: RegisterLogAction.CHANGE_PASSWORD));
     CURRENT_USER?.password = newPassword;
-    DatabaseProvider.updateUser(CURRENT_USER!);
+    DatabaseProvider.updatePassword(CURRENT_USER!);
     Navigator.pushNamed(context, '/home');
   }
 }

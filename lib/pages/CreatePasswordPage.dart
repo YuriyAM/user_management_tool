@@ -70,7 +70,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   _createPassword(String newPassword) async {
     RegisterLogProvider.insert(Logger(action: RegisterLogAction.CHANGE_PASSWORD));
     CURRENT_USER?.password = newPassword;
-    DatabaseProvider.updateUser(CURRENT_USER!);
+    DatabaseProvider.updatePassword(CURRENT_USER!);
     Navigator.pushNamed(context, '/home');
   }
 }

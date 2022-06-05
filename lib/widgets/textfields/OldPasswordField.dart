@@ -3,11 +3,9 @@ import 'package:user_management_tool/globals.dart';
 
 class OldPasswordField extends StatefulWidget {
   final TextEditingController controller;
-  final Function setValidity;
   const OldPasswordField({
     Key? key,
     required this.controller,
-    required this.setValidity,
   }) : super(key: key);
   @override
   _OldPasswordFieldState createState() => _OldPasswordFieldState();
@@ -21,25 +19,11 @@ class _OldPasswordFieldState extends State<OldPasswordField> {
     });
   }
 
-  _isPasswordValid(String? password) {
-    if (password == null ||
-        password.isEmpty ||
-        password != CURRENT_USER!.password) {
-      widget.setValidity(false);
-      return "Password is not correct";
-    } else {
-      widget.setValidity(true);
-      return null;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
       obscureText: _showPassword,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (value) => _isPasswordValid(value),
       decoration: InputDecoration(
         hintText: "Enter current password",
         // errorText: "Password must contain at least 1 special character"

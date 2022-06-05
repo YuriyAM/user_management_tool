@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
         content:
             "User is disabled. Please, contact your administrator for more details.",
       ).show(context);
-    } else if (u.password == '') {
+    } else if (password.text == '') {
       CURRENT_USER = u;
       RegisterLogProvider.insert(Logger(action: RegisterLogAction.LOG_IN));
       await LoginAlertDialog(content: "Please, create password").show(context);

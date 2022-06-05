@@ -43,6 +43,7 @@ class DatabaseProvider {
   }
 
   static checkCredentials(Credentials creds) async {
+    creds.hashPassword();
     var u = await userCollection.findOne({
       "username": creds.username,
       "password": creds.password,
@@ -62,6 +63,7 @@ class DatabaseProvider {
   }
 
   static insertUser(User user) async {
+    user.hashPassword();
     if (await findUser(user) == false) {
       await userCollection.insertOne(user.toMap());
       // Handle database init
@@ -77,6 +79,11 @@ class DatabaseProvider {
   static updateUser(User user) async {
     await userCollection.replaceOne({"username": user.username}, user.toMap());
     return true;
+  }
+
+  static updatePassword(User user) async {
+    user.hashPassword();
+    await updateUser(user);
   }
 
   static deleteUser(User user) async {

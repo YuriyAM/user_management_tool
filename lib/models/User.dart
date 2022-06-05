@@ -1,3 +1,6 @@
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
+
 import 'package:user_management_tool/models/Credentials.dart';
 
 class User {
@@ -37,4 +40,6 @@ class User {
     privileged = u.privileged;
     enabled = u.enabled;
   }
+
+  hashPassword() => password = sha256.convert(utf8.encode(password)).toString();
 }
