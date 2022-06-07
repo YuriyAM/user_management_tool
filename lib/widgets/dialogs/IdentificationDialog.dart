@@ -10,12 +10,12 @@ import 'package:user_management_tool/widgets/dialogs/IdentificationFailedDialog.
 
 class IdentificationDialog {
   GlobalKey navigatorKey;
+  late Timer captchaTimer;
   bool inUse = false;
   IdentificationDialog(this.navigatorKey) {
     if (inUse || CURRENT_USER == null) {
       return;
     }
-    print("here");
     var captchaImages = [
       "lib/images/captcha-1.jpg",
       "lib/images/captcha-2.jpg",
@@ -26,11 +26,11 @@ class IdentificationDialog {
     var randomImage = (captchaImages..shuffle()).first;
 
     inUse = true;
-    Timer t = Timer(Duration(minutes: 1), captchaTimeout);
-    show(t, randomImage);
+    captchaTimer = Timer(Duration(seconds: 20), captchaTimeout);
+    show(randomImage);
   }
 
-  show(Timer t, String image) {
+  show(String image) {
     showDialog(
       context: navigatorKey.currentContext!,
       barrierDismissible: false,
@@ -48,7 +48,7 @@ class IdentificationDialog {
               ),
               onSuccess: () => {
                 inUse = false,
-                t.cancel(),
+                captchaTimer.cancel(),
                 Navigator.of(navigatorKey.currentContext!).pop(),
                 OperationalLogProvider.insert(Logger(action: OperationalLogAction.IDENTIFICATION_PASSED))
               },
@@ -59,11 +59,12 @@ class IdentificationDialog {
     );
   }
 
-  captchaTimeout() {
+  captchaTimeout() async {
+    captchaTimer.cancel();
+    OperationalLogProvider.insert(Logger(action: OperationalLogAction.IDENTIFICATION_FAILED));
     CURRENT_USER = null;
     inUse = false;
-    OperationalLogProvider.insert(Logger(action: OperationalLogAction.IDENTIFICATION_FAILED));
     Navigator.of(navigatorKey.currentContext!).pop(true);
-    IdentificationFailedDialog.show(navigatorKey.currentContext!);
+    await IdentificationFailedDialog.show(navigatorKey.currentContext!);
   }
 }
